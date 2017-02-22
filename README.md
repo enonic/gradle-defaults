@@ -40,5 +40,6 @@ enonic {
     publishConfigs = ['archives']
 
     // A list of publications to publish. Defaults to 'mavenJava'.
+    publishPublications = ['mavenJava']
 }
 ```
