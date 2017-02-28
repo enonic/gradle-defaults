@@ -1,11 +1,10 @@
 plugins {
     id 'groovy'
     id 'java-gradle-plugin'
-    id 'com.jfrog.artifactory' version '4.4.13'
-    id 'maven-publish'
+    id 'maven'
 }
 
-version = '1.0.0'
+version = '1.0.1'
 group = 'com.enonic.gradle'
 
 repositories {
@@ -15,28 +14,15 @@ repositories {
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    compile 'org.jfrog.buildinfo:build-info-extractor-gradle:4.4.13'
 }
 
-publishing {
-    publications {
-        mavenJava( MavenPublication ) {
-            from components.java
-        }
-    }
-}
-
-artifactory {
-    contextUrl = 'https://repo.enonic.com'
-    publish {
-        repository {
-            repoKey = 'public'
-            username = project.findProperty( 'repoUser' )
-            password = project.findProperty( 'repoPassword' )
-        }
-        defaults {
-            publishBuildInfo = false
-            publications( 'mavenJava' )
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository( url: 'https://repo.enonic.com/public' ) {
+                authentication( userName: findProperty( 'repoUser' ),
+                                password: findProperty( 'repoPassword' ) )
+            }
         }
     }
 }

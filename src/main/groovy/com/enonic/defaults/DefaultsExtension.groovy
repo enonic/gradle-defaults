@@ -10,21 +10,17 @@ class DefaultsExtension
 
     def publishUrl = 'https://repo.enonic.com';
 
-    def publishBuildInfo = false;
-
-    def publishArtifacts = true;
-
-    def String[] publishConfigs = ['archives'];
-
-    def String[] publishPublications = ['mavenJava'];
-
-    static DefaultsExtension get( final Project project )
+    DefaultsExtension( final Project project )
     {
-        return project.extensions.getByType( DefaultsExtension );
+        def repoKey = project.findProperty( 'repoKey' );
+        if ( repoKey != null )
+        {
+            this.publishRepo = repoKey;
+        }
     }
 
     static DefaultsExtension create( final Project project )
     {
-        return project.extensions.create( KEY, DefaultsExtension );
+        return project.extensions.create( KEY, DefaultsExtension, project );
     }
 }
