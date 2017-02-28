@@ -19,15 +19,30 @@ buildscript {
 apply plugin: 'com.enonic.defaults'
 ```
 
-The plugin can also be configured using `enonic`-closure:
+## Publishing to Repository
 
-```gradle
-enonic {
+This plugin sets up default values for publishing to our repository at https://repo.enonic.com. To
+set up publishing, first add the `maven` plugin.
 
-    // Repository to publish to. Default to 'public'. Can also be set using repoKey property.
-    publishRepo = 'public' 
-    
-    // Repository URL. Default to 'https://repo.enonic.com'.
-    publishUrl = 'https://repo.enonic.com'
-}
 ```
+apply plugin: 'maven'
+```
+
+Then publish using `uploadArchives` task. This will default publish to `public` repo. To override this, 
+you can add this to your local `gradle.properties` file:
+
+```
+repoKey = inhouse
+```
+
+The publishing task also needs some credentials. This can be set up in your global `gradle.properties`
+file that is under `.gradle/gradle.properties` in your user home directory. Set the following:
+
+```
+repoUser = <your user>
+repoPassword = <your repo password
+```
+
+The password should not be your password that you use to log into artifactory with. Please generate
+a token under your profile and use that.
+
