@@ -40,7 +40,7 @@ file that is under `.gradle/gradle.properties` in your user home directory. Set 
 
 ```
 repoUser = <your user>
-repoPassword = <your repo password
+repoPassword = <your repo 'API key'>
 ```
 
 The password should not be your password that you use to log into artifactory with. Please generate
