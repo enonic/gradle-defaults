@@ -2,9 +2,10 @@ plugins {
     id 'groovy'
     id 'java-gradle-plugin'
     id 'maven'
+    id 'com.gradle.plugin-publish' version '0.9.7'
 }
 
-version = '1.0.1'
+version = '1.0.3-SNAPSHOT'
 group = 'com.enonic.gradle'
 
 repositories {
@@ -16,13 +17,15 @@ dependencies {
     compile localGroovy()
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository( url: 'https://repo.enonic.com/public' ) {
-                authentication( userName: findProperty( 'repoUser' ),
-                                password: findProperty( 'repoPassword' ) )
-            }
+pluginBundle {
+    website = 'https://enonic.com'
+    vcsUrl = 'git@github.com:enonic/gradle-defaults.git'
+    plugins {
+        defaults_plugin {
+            id = 'com.enonic.defaults'
+            displayName = 'Enonic Defaults Plugin'
+            description = 'Defaults plugin for Enonic projects.'
+            tags = ['enonic', 'java', 'groovy']
         }
     }
 }

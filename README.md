@@ -3,20 +3,9 @@
 This plugin provides some default settings for Enonic gradle projects. To use it, specify the following:
 
 ```gradle
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://repo.enonic.com/public'
-        }
-    }
-
-    dependencies {
-        classpath 'com.enonic.gradle:gradle-defaults:1.0.1'
-    }
+plugins {
+    id 'com.enonic.defaults' version '1.0.2'
 }
-
-apply plugin: 'com.enonic.defaults'
 ```
 
 ## Publishing to Repository
