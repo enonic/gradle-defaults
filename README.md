@@ -4,7 +4,7 @@ This plugin provides some default settings for Enonic gradle projects. To use it
 
 ```gradle
 plugins {
-    id 'com.enonic.defaults' version '1.0.2'
+    id 'com.enonic.defaults' version '1.0.3'
 }
 ```
 
@@ -34,4 +34,15 @@ repoPassword = <your repo 'API key'>
 
 The password should not be your password that you use to log into artifactory with. Please generate
 a token under your profile and use that.
+
+## Publishing docs to S3
+
+Docs can also be published to S3 if the `com.enonic.xp.doc` plugin is added. To configure S3 settings
+use the global `gradle.properties` file that is under `.gradle/gradle.properties` in your user home 
+directory. Set the following:
+
+```
+s3AccessKey = <your S3 access key>
+s3SecretKey = <your S3 secret key>
+```
 
