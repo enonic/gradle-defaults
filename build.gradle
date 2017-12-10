@@ -1,6 +1,5 @@
 plugins {
     id 'groovy'
-    // id 'java-gradle-plugin'
     id 'maven'
     id 'com.jfrog.bintray' version '1.7.3'
 }
@@ -37,7 +36,7 @@ bintray {
         publicDownloadNumbers = true
 
         version {
-            attributes = ['gradle-plugin': "com.enonic.defaults:${group}:${name}"]
+            attributes = ['gradle-plugin': "com.enonic.defaults:${group}:${project.name}"]
         }
     }
 }
