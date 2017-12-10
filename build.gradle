@@ -1,11 +1,11 @@
 plugins {
     id 'groovy'
-    id 'java-gradle-plugin'
+    // id 'java-gradle-plugin'
     id 'maven'
-    id 'com.gradle.plugin-publish' version '0.9.7'
+    id 'com.jfrog.bintray' version '1.7.3'
 }
 
-version = '1.0.3'
+version = '1.0.4'
 group = 'com.enonic.gradle'
 
 repositories {
@@ -17,15 +17,27 @@ dependencies {
     compile localGroovy()
 }
 
-pluginBundle {
-    website = 'https://enonic.com'
-    vcsUrl = 'git@github.com:enonic/gradle-defaults.git'
-    plugins {
-        defaults_plugin {
-            id = 'com.enonic.defaults'
-            displayName = 'Enonic Defaults Plugin'
-            description = 'Defaults plugin for Enonic projects.'
-            tags = ['enonic', 'java', 'groovy']
+bintray {
+    user = project.findProperty( 'bintrayUser' )
+    key = project.findProperty( 'bintrayKey' )
+    configurations = ['archives']
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = 'gradle-defaults'
+        userOrg = 'enonic'
+        desc = 'Defaults plugin for Enonic projects.'
+        licenses = ['Apache-2.0']
+        labels = ['enonic', 'java', 'groovy']
+        websiteUrl = 'https://enonic.com'
+        issueTrackerUrl = 'https://github.com/enonic/gradle-defaults/issues'
+        vcsUrl = 'https://github.com/enonic/gradle-defaults.git'
+        githubRepo = 'enonic/gradle-defaults'
+        publicDownloadNumbers = true
+
+        version {
+            attributes = ['gradle-plugin': "com.enonic.defaults:${group}:${name}"]
         }
     }
 }
