@@ -16,6 +16,15 @@ dependencies {
     compile localGroovy()
 }
 
+task sourcesJar( type: Jar, dependsOn: classes ) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 bintray {
     user = project.findProperty( 'bintrayUser' )
     key = project.findProperty( 'bintrayKey' )
