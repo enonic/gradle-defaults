@@ -4,20 +4,20 @@ This plugin provides some default settings for Enonic gradle projects. To use it
 
 ```gradle
 plugins {
-    id 'com.enonic.defaults' version '1.0.3'
+    id 'com.enonic.defaults' version '1.1.0'
 }
 ```
 
 ## Publishing to Repository
 
 This plugin sets up default values for publishing to our repository at https://repo.enonic.com. To
-set up publishing, first add the `maven` plugin.
+set up publishing, first add the `maven-publish` plugin.
 
 ```
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 ```
 
-Then publish using `uploadArchives` task. This will default publish to `public` repo. To override this, 
+Then publish using `publish` task. This will default publish to `public` repo. To override this, 
 you can add this to your local `gradle.properties` file:
 
 ```
