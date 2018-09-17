@@ -3,7 +3,9 @@ package com.enonic.defaults
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.MavenPlugin
+import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
+import org.gradle.api.publish.plugins.PublishingPlugin
 
 class DefaultsPlugin
     implements Plugin<Project>
@@ -36,20 +38,28 @@ class DefaultsPlugin
 
     private void configurePublishing()
     {
-        def mavenPlugin = this.project.plugins.hasPlugin( MavenPlugin )
-        if ( !mavenPlugin )
+        def hasPublishPlugins = this.project.plugins.hasPlugin( PublishingPlugin ) && this.project.plugins.hasPlugin( MavenPublishPlugin )
+
+        if ( !hasPublishPlugins )
         {
             return
         }
 
         this.project.with {
-            uploadArchives {
+            publishing {
+                publications {
+                    mavenJava( MavenPublication ) {
+                        from components.java
+                    }
+                }
                 repositories {
-                    mavenDeployer {
-                        repository( url: "${this.ext.publishUrl}/${this.ext.publishRepo}" ) {
-                            authentication( userName: this.project.findProperty( 'repoUser' ),
-                                            password: this.project.findProperty( 'repoPassword' ) )
+                    maven {
+                        credentials {
+                            username this.project.findProperty( 'repoUser' )
+                            password this.project.findProperty( 'repoPassword' )
                         }
+                        name "public"
+                        url "${this.ext.publishUrl}/${this.ext.publishRepo}"
                     }
                 }
             }
