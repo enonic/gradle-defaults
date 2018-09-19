@@ -28,13 +28,21 @@ class DefaultsPlugin
             }
         } )
 
-        this.project.afterEvaluate( new Action<Project>() {
+        def configureAfterEvaluate = ( this.project.findProperty( 'publish.afterEvaluate' ) ?: true ).toBoolean()
+        
+        def configurePublishingAction = new Action<Project>() {
             @Override
             void execute( final Project pr )
             {
                 configurePublishing()
             }
-        } )
+        }
+
+        if ( configureAfterEvaluate ) {
+            this.project.afterEvaluate( configurePublishingAction )
+        } else {
+            this.project.beforeEvaluate( configurePublishingAction )
+        }
     }
 
     private void configurePublishing()
