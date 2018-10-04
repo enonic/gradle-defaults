@@ -4,7 +4,7 @@ This plugin provides some default settings for Enonic gradle projects. To use it
 
 ```gradle
 plugins {
-    id 'com.enonic.defaults' version '2.0.0-SNAPSHOT'
+    id 'com.enonic.defaults' version '2.0.1'
 }
 ```
 
