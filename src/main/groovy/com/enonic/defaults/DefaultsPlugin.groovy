@@ -3,6 +3,7 @@ package com.enonic.defaults
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.plugins.MavenPublishPlugin
 import org.gradle.api.publish.plugins.PublishingPlugin
@@ -39,19 +40,27 @@ class DefaultsPlugin
     private void configurePublishing()
     {
         def hasPublishPlugins = this.project.plugins.hasPlugin( PublishingPlugin ) && this.project.plugins.hasPlugin( MavenPublishPlugin )
+        def hasJavaPlugin = this.project.plugins.hasPlugin( JavaPlugin )
 
         if ( !hasPublishPlugins )
         {
             return
         }
 
-        this.project.with {
-            publishing {
-                publications {
-                    mavenJava( MavenPublication ) {
-                        from components.java
+        if ( hasJavaPlugin ) {
+            this.project.with {
+                publishing {
+                    publications {
+                        mavenJava( MavenPublication ) {
+                            from components.java
+                        }
                     }
                 }
+            }
+        }
+
+        this.project.with {
+            publishing {
                 repositories {
                     maven {
                         credentials {
