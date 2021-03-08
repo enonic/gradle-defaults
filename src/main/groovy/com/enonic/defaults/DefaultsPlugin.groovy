@@ -20,14 +20,6 @@ class DefaultsPlugin
         this.project = project
         this.ext = DefaultsExtension.create( this.project )
 
-        this.project.plugins.withId( 'com.enonic.xp.doc', new Action<Plugin>() {
-            @Override
-            void execute( final Plugin plugin )
-            {
-                configureS3Settings()
-            }
-        } )
-
         this.project.afterEvaluate( new Action<Project>() {
             @Override
             void execute( final Project pr )
@@ -70,19 +62,6 @@ class DefaultsPlugin
                         name "public"
                         url "${this.ext.publishUrl}/${this.ext.publishRepo}"
                     }
-                }
-            }
-        }
-    }
-
-    private void configureS3Settings()
-    {
-        this.project.with {
-            doc {
-                s3 {
-                    bucketName = 'enonic-docs'
-                    accessKey = this.project.findProperty( 's3AccessKey' )
-                    secretKey = this.project.findProperty( 's3SecretKey' )
                 }
             }
         }
