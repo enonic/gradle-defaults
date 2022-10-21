@@ -34,3 +34,14 @@ repoPassword = <your repo 'API key'>
 
 The password should not be your password that you use to log into artifactory with. Please generate
 a token under your profile and use that.
+
+## Configuration
+
+Starting from version 2.1.0 you can customize the `description` and `name` tags in the pom.xml file:
+
+## gradle.properties
+
+```properties
+description=<This value will be used in the `description` tag in the pom.xml file>
+publicName=<This value will be used in the `name` tag in the pom.xml file. Optional. Default `value project.name`>
+```
