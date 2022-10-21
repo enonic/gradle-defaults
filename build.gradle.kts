@@ -4,7 +4,7 @@ plugins {
     id("com.gradle.plugin-publish") version "0.21.0"
 }
 
-version = "2.0.2-SNAPSHOT"
+version = "2.1.0-SNAPSHOT"
 group = "com.enonic.gradle"
 
 gradlePlugin {
