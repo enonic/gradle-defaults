@@ -40,8 +40,14 @@ class DefaultsPlugin
         {
             return "${matcher.group( 1 )}"
         }
-
-        throw new IllegalStateException( "Not possible to resolve a repository name" )
+        else if ( this.project.rootDir.exists() )
+        {
+            return this.project.rootDir.name
+        }
+        else
+        {
+            throw new IllegalStateException( "Not possible to resolve a repository name" )
+        }
     }
 
     private String[] ensureThatLicenseExistsAndGetMetadata()
