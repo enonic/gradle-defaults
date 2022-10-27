@@ -34,20 +34,19 @@ class DefaultsPlugin
 
     private String resolveRepositoryName()
     {
-        Pattern pattern = Pattern.compile( "git@github.com:enonic/(.*).git" )
-        Matcher matcher = pattern.matcher( this.project.file( ".git/config" ).text )
-        if ( matcher.find() )
+        def gitConfigFile = this.project.file( ".git/config" )
+
+        if ( gitConfigFile.exists() )
         {
-            return "${matcher.group( 1 )}"
+            Pattern pattern = Pattern.compile( "git@github.com:enonic/(.*).git" )
+            Matcher matcher = pattern.matcher( gitConfigFile.text )
+            if ( matcher.find() )
+            {
+                return "${matcher.group( 1 )}"
+            }
         }
-        else if ( this.project.rootDir.exists() )
-        {
-            return this.project.rootDir.name
-        }
-        else
-        {
-            throw new IllegalStateException( "Not possible to resolve a repository name" )
-        }
+
+        return this.project.rootDir.name
     }
 
     private String[] ensureThatLicenseExistsAndGetMetadata()
@@ -75,6 +74,10 @@ class DefaultsPlugin
         {
             return ["${licenseFileName}", "The Apache Software License, Version 2.0"]
         }
+        if ( licenceText.contains( 'Enonic License, version 1.0' ) )
+        {
+            return ["${licenseFileName}", "Enonic License, version 1.0"]
+        }
 
         throw new IllegalStateException( "Unsupported License" )
     }
@@ -89,10 +92,6 @@ class DefaultsPlugin
             return
         }
 
-        def repositoryName = resolveRepositoryName()
-
-        String[] licenseTuple = ensureThatLicenseExistsAndGetMetadata()
-
         if ( hasJavaPlugin )
         {
             this.project.with {
@@ -106,27 +105,33 @@ class DefaultsPlugin
                         mavenJava( MavenPublication ) {
                             from components.java
 
-                            pom {
-                                name = this.project.findProperty( 'publicName' ) ?: this.project.name
-                                description = this.project.findProperty( 'description' ) ?: this.project.name
-                                url = "https://github.com/enonic/${repositoryName}"
-                                licenses {
-                                    license {
-                                        name = licenseTuple[1]
-                                        url = "https://github.com/enonic/${repositoryName}/blob/master/${licenseTuple[0]}"
-                                    }
-                                }
-                                developers {
-                                    developer {
-                                        id = 'developers'
-                                        name = 'Enonic developers'
-                                        email = 'developers@enonic.com'
-                                    }
-                                }
-                                scm {
-                                    connection = "scm:git:git@github.com:enonic/${repositoryName}.git"
-                                    developerConnection = "scm:git:git@github.com:enonic/${repositoryName}.git"
+                            if ( !"inhouse".equals( this.ext.publishRepo ) )
+                            {
+                                String repositoryName = resolveRepositoryName()
+                                String[] licenseTuple = ensureThatLicenseExistsAndGetMetadata()
+
+                                pom {
+                                    name = this.project.findProperty( 'publicName' ) ?: this.project.name
+                                    description = this.project.findProperty( 'description' ) ?: this.project.name
                                     url = "https://github.com/enonic/${repositoryName}"
+                                    licenses {
+                                        license {
+                                            name = licenseTuple[1]
+                                            url = "https://github.com/enonic/${repositoryName}/blob/master/${licenseTuple[0]}"
+                                        }
+                                    }
+                                    developers {
+                                        developer {
+                                            id = 'developers'
+                                            name = 'Enonic developers'
+                                            email = 'developers@enonic.com'
+                                        }
+                                    }
+                                    scm {
+                                        connection = "scm:git:git@github.com:enonic/${repositoryName}.git"
+                                        developerConnection = "scm:git:git@github.com:enonic/${repositoryName}.git"
+                                        url = "https://github.com/enonic/${repositoryName}"
+                                    }
                                 }
                             }
                         }
