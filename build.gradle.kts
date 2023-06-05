@@ -1,29 +1,23 @@
 plugins {
     groovy
     `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "0.21.0"
+    id("com.gradle.plugin-publish") version "1.2.0"
 }
 
 version = "2.1.3-SNAPSHOT"
 group = "com.enonic.gradle"
 
-gradlePlugin {
-    plugins {
-        register("defaults_plugin") {
-            id = "com.enonic.defaults"
-            implementationClass = "com.enonic.defaults.DefaultsPlugin"
-        }
-    }
+tasks.compileJava {
+    options.release.set(11)
 }
 
-pluginBundle {
-    website = "https://enonic.com"
-    vcsUrl = "https://github.com/enonic/gradle-defaults"
-    (plugins) {
-        "defaults_plugin" {
-            displayName = "Enonic Defaults Plugin"
-            description = "Defaults plugin for Enonic projects."
-            tags = listOf("enonic", "java", "groovy")
+gradlePlugin {
+    website.set("https://enonic.com")
+    vcsUrl.set("https://github.com/enonic/gradle-defaults")
+    plugins {
+        create("defaults_plugin") {
+            id = "com.enonic.defaults"
+            implementationClass = "com.enonic.defaults.DefaultsPlugin"
         }
     }
 }

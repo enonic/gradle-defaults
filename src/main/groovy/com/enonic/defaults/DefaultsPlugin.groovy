@@ -79,7 +79,7 @@ class DefaultsPlugin
             return ["${licenseFileName}", "Enonic License, version 1.0"]
         }
 
-        throw new IllegalStateException( "Unsupported License" )
+        throw new IllegalStateException( "Unsupported License. LICENSE.txt Must be either GNU, Apache or Enonic License" )
     }
 
     private void configurePublishing()
