@@ -95,9 +95,13 @@ class DefaultsPlugin
         if ( hasJavaPlugin )
         {
             this.project.with {
-                java {
-                    withSourcesJar()
-                    withJavadocJar()
+                def projectNameProp = this.project.findProperty( 'projectName' )
+                if ( projectNameProp != null && projectNameProp.startsWith( 'lib-' ) )
+                {
+                    java {
+                        withSourcesJar()
+                        withJavadocJar()
+                    }
                 }
 
                 publishing {
