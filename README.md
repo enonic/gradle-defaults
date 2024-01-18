@@ -62,3 +62,11 @@ don't break anything. [^1]
 [^1]: Version 2.1.1 caused major problems because of this specific issue.  Several projects were automatically updated by Dependabot,
 because the build didn't fail, but the projects could not be deployed.
 
+## Releasing
+
+To release a new version of the plugin, change the version in `build.gradle.kts` (for instance `version = "2.1.3"`,
+tag the commit with the version number (for instance `git tag v2.1.3`) and push to GitHub (`git push --follow-tags`).
+
+After the release is done, update the version in `build.gradle.kts` to the next snapshot version (for instance `version = "2.1.4-SNAPSHOT"`).
+
+
