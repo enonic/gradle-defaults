@@ -17,6 +17,9 @@ gradlePlugin {
     plugins {
         create("defaults_plugin") {
             id = "com.enonic.defaults"
+            displayName = "Enonic XP Defaults Plugin"
+            description = "Defaults plugin for Enonic projects."
+            tags.set(listOf("enonic", "java", "groovy"))
             implementationClass = "com.enonic.defaults.DefaultsPlugin"
         }
     }
