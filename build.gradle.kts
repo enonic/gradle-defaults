@@ -4,7 +4,7 @@ plugins {
     id("com.gradle.plugin-publish") version "1.2.1"
 }
 
-version = "2.1.5-SNAPSHOT"
+version = "2.1.5"
 group = "com.enonic.gradle"
 
 tasks.compileJava {
