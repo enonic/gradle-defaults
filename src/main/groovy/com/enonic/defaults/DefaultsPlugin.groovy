@@ -149,11 +149,11 @@ class DefaultsPlugin
                 repositories {
                     maven {
                         credentials {
-                            username this.project.findProperty( 'repoUser' )
-                            password this.project.findProperty( 'repoPassword' )
+                            username = this.project.findProperty( 'repoUser' )
+                            password = this.project.findProperty( 'repoPassword' )
                         }
-                        name "public"
-                        url "${this.ext.publishUrl}/${this.ext.publishRepo}"
+                        name = "public"
+                        url = "${this.ext.publishUrl}/${this.ext.publishRepo}"
                     }
                 }
             }

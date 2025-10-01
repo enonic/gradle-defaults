@@ -1,7 +1,7 @@
 plugins {
     groovy
     `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "1.3.1"
+    alias(libs.plugins.plugin.publish)
 }
 
 version = "2.1.6-SNAPSHOT"
