@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.plugin.publish)
 }
 
-version = "2.1.6-SNAPSHOT"
+version = "2.1.6"
 group = "com.enonic.gradle"
 
 tasks.compileJava {

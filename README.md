@@ -12,7 +12,7 @@ To use it, specify the following:
 
 ```gradle
 plugins {
-    id 'com.enonic.defaults' version '2.1.1'
+    id 'com.enonic.defaults' version '2.1.6'
 }
 ```
 
