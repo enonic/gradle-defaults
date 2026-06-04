@@ -78,6 +78,10 @@ class DefaultsPlugin
         {
             return ["${licenseFileName}", "Enonic License, version 1.0"]
         }
+        if ( licenceText.contains( 'ENONIC LICENSE 2.0' ) )
+        {
+            return ["${licenseFileName}", "ENONIC LICENSE 2.0"]
+        }
 
         throw new IllegalStateException( "Unsupported License. LICENSE.txt Must be either GNU, Apache or Enonic License" )
     }
